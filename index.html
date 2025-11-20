@@ -2,92 +2,100 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0f3f2d">
     <title>AdvoCalc – Honorários Advocatícios OAB-SP 2025</title>
-    <meta name="description" content="Calculadora gratuita de honorários advocatícios baseada na Tabela OAB-SP 2025. Cálculo instantâneo e offline.">
+    <meta name="description" content="Calculadora gratuita de honorários advocatícios baseada na Tabela OAB-SP 2025.">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="icon-512.png" sizes="512x512">
-    <link rel="apple-touch-icon" href="icon-512.png">
 
-    <!-- AdSense (versão web) – só aparece em telas > 480px -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXX" 
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXX"
             crossorigin="anonymous"></script>
 
     <style>
-        :root { --verde: #0f3f2d; --verde-claro: #22c55e; --cinza: #f8fafc; }
-        .dark { --cinza: #0f172a; --texto: #e2e8f0; }
+        :root { --verde:#0f3f2d; --verde-claro:#22c55e; --cinza:#f8fafc; }
+        .dark { --cinza:#0f172a; }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Segoe UI',Arial,sans-serif; background:var(--cinza); color:#1e293b; padding:15px 10px; min-height:100vh; }
+        html, body { height:100%; }
+        body { font-family:'Segoe UI',Arial,sans-serif; background:var(--cinza); color:#1e293b; padding:15px 10px; display:flex; flex-direction:column; }
         .dark { background:#0f172a; color:#e2e8f0; }
-        h1 { text-align:center; color:var(--verde); font-size:26px; margin:20px 0; }
+        h1 { text-align:center; color:var(--verde); font-size:28px; margin:20px 0; }
         .dark h1 { color:var(--verde-claro); }
-        .card { background:white; border-radius:16px; padding:20px; box-shadow:0 10px 30px rgba(0,0,0,0.1); max-width:500px; margin:0 auto; }
-        .dark .card { background:#1e293b; }
+        .card { flex:1; display:flex; flex-direction:column; max-width:500px; margin:0 auto; width:100%; }
+        .inner { background:white; border-radius:16px; padding:25px; box-shadow:0 10px 30px rgba(0,0,0,0.1); flex:1; }
+        .dark .inner { background:#1e293b; }
         label { display:block; margin:18px 0 8px; font-weight:600; font-size:15px; }
         input, select { width:100%; padding:14px; border:2px solid #cbd5e1; border-radius:12px; font-size:16px; }
         input:focus, select:focus { border-color:var(--verde-claro); outline:none; }
         button { width:100%; padding:16px; background:var(--verde); color:white; border:none; border-radius:12px; font-size:18px; font-weight:bold; margin-top:20px; }
         button:active { transform:scale(0.98); }
-        #result { margin-top:25px; padding:20px; background:#f0fdf4; border-radius:12px; border-left:6px solid var(--verde-claro); font-size:17px; line-height:1.6; }
+        #result { margin-top:20px; padding:20px; background:#f0fdf4; border-radius:12px; border-left:6px solid var(--verde-claro); font-size:17px; line-height:1.6; }
         .dark #result { background:#16634733; }
-        .ads { margin:25px auto; text-align:center; max-width:500px; }
-        footer { text-align:center; margin-top:30px; color:#64748b; font-size:13px; }
-        @media (prefers-color-scheme: dark) { body { background:#0f172a; color:#e2e8f0; } }
+        .ads { margin:40px auto; max-width:500px; }
+        footer { text-align:center; padding:30px 0 20px; color:#64748b; font-size:13px; }
+        .trafer { color:#0a304b; font-weight:700; text-decoration:none; }
+        .trafer:hover { text-decoration:underline; }
+        @media (prefers-color-scheme: dark) { body, .inner { background:#0f172a; color:#e2e8f0; } }
     </style>
 </head>
 <body>
+
     <div class="card">
-        <h1>⚖ AdvoCalc</h1>
-        <p style="text-align:center; color:#64748b; margin-bottom:25px; font-size:14px;">
-            Honorários Advocatícios – Tabela OAB-SP 2025
-        </p>
+        <div class="inner">
+            <h1>⚖ AdvoCalc</h1>
+            <p style="text-align:center; color:#64748b; margin-bottom:25px; font-size:14px;">
+                Honorários Advocatícios – Tabela OAB-SP 2025
+            </p>
 
-        <label>Valor da causa (R$)</label>
-        <input type="number" id="valor" value="50000" step="0.01" placeholder="Ex: 50000.00">
+            <label>Valor da causa (R$)</label>
+            <input type="number" id="valor" value="50000" step="0.01" placeholder="Ex: 50000.00">
 
-        <label>Tipo de atuação</label>
-        <select id="tipo">
-            <option value="consultoria">Consultoria jurídica</option>
-            <option value="acao_inicial">Ação inicial (cível/trabalhista)</option>
-            <option value="recurso">Recurso ou contestação</option>
-            <option value="execucao">Execução / Cumprimento de sentença</option>
-            <option value="tedoc">TEDOC (novo valor 2025)</option>
-            <option value="acordo">Honorários de êxito (acordo)</option>
-        </select>
+            <label>Tipo de atuação</label>
+            <select id="tipo">
+                <option value="consultoria">Consultoria jurídica</option>
+                <option value="acao_inicial">Ação inicial (cível/trabalhista)</option>
+                <option value="recurso">Recurso ou contestação</option>
+                <option value="execucao">Execução / Cumprimento de sentença</option>
+                <option value="tedoc">TEDOC (novo valor 2025)</option>
+                <option value="acordo">Honorários de êxito (acordo)</option>
+            </select>
 
-        <button onclick="calcular()">Calcular Honorários</button>
+            <button onclick="calcular()">Calcular Honorários</button>
+            <div id="result"></div>
+        </div>
 
-        <div id="result"></div>
+        <!-- Footer com link Trafer Digital + WhatsApp -->
+        <footer>
+            © 2025 AdvoCalc – 100% offline • Sem coleta de dados<br><br>
+            <a href="https://wa.me/5511988484500?text=Olá!%20Vi%20o%20AdvoCalc%20e%20gostaria%20de%20conversar" 
+               target="_blank" class="trafer">
+               Desenvolvido por Trafer Digital
+            </a>
+        </footer>
     </div>
 
-    <!-- AdSense só na versão web (não aparece no app/PWA) -->
-    <div class="ads" id="adsense-banner" style="display:none;">
+    <!-- AdSense (só aparece na web) -->
+    <div class="ads">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXX"
+                crossorigin="anonymous"></script>
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-XXXXXXXXXXXXXXX"
-             data-ad-slot="1234567890"
+             data-ad-slot="SEU_SLOT_AQUI"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
-    <footer>© 2025 AdvoCalc – 100% offline • Sem coleta de dados</footer>
-
     <script>
-        // Tema escuro automático
+        // Tema escuro
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.body.classList.add('dark');
-            document.querySelector('.card').classList.add('dark');
+            document.querySelector('.inner').classList.add('dark');
         }
 
-        // Mostra AdSense só em telas maiores (versão web)
-        if (window.innerWidth > 480) {
-            document.getElementById('adsense-banner').style.display = 'block';
-        }
-
+        // Cálculo
         function calcular() {
             const valor = parseFloat(document.getElementById('valor').value) || 0;
             const tipo = document.getElementById('tipo').value;
@@ -96,10 +104,10 @@
             switch(tipo) {
                 case "consultoria": perc = 0.20; desc = "20% (art. 47)"; break;
                 case "acao_inicial": perc = 0.20; desc = "20% inicial"; break;
-                case "recurso": perc = 0.15; desc = "15% (adicional)"; break;
+                case "recurso": perc = 0.15; desc = "15% adicional"; break;
                 case "execucao": perc = 0.10; desc = "10% execução"; break;
                 case "tedoc": fixo = 50; perc = 0.01; desc = "R$ 50 + 1% (TEDOC 2025)"; break;
-                case "acordo": perc = 0.30; desc = "30% de êxito (cláusula comum)"; break;
+                case "acordo": perc = 0.30; desc = "30% de êxito"; break;
             }
 
             const honorarios = fixo + (valor * perc);
@@ -108,19 +116,18 @@
 
             document.getElementById('result').innerHTML = `
                 <strong style="color:var(--verde-claro); font-size:20px;">
-                    Honorários sugeridos:<br> R$ ${honorarios.toLocaleString('pt-BR', {minimumFractionDigits:2})}
+                    Honorários sugeridos:<br>R$ ${honorarios.toLocaleString('pt-BR', {minimumFractionDigits:2})}
                 </strong><br><br>
                 <strong>Tipo:</strong> ${document.querySelector(`#tipo option[value="${tipo}"]`).textContent}<br>
                 <strong>Base:</strong> R$ ${valor.toLocaleString('pt-BR', {minimumFractionDigits:2})}<br>
-                <strong>Regra aplicada:</strong> ${desc}<br><br>
+                <strong>Regra:</strong> ${desc}<br><br>
                 <small>
                     Sucumbência (CPC): R$ ${sucMin.toFixed(2)} – R$ ${sucMax.toFixed(2)}<br>
-                    Cálculo 100% offline • Atualizado 2025
+                    100% offline • Atualizado 2025
                 </small>
             `;
         }
 
-        // PWA
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js');
         }
